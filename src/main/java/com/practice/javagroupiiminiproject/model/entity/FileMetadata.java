@@ -1,4 +1,4 @@
-package org.example.miniprojectuploadfileminio.model.entity;
+package com.practice.javagroupiiminiproject.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

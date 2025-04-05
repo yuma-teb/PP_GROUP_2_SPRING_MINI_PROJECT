@@ -1,8 +1,8 @@
-package org.example.miniprojectuploadfileminio.controller;
+package com.practice.javagroupiiminiproject.controller;
 
-import org.example.miniprojectuploadfileminio.model.entity.FileMetadata;
-import org.example.miniprojectuploadfileminio.model.response.APIResponse;
-import org.example.miniprojectuploadfileminio.service.FileService;
+import com.practice.javagroupiiminiproject.model.entity.FileMetadata;
+import com.practice.javagroupiiminiproject.model.response.APIResponse;
+import com.practice.javagroupiiminiproject.service.FileService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

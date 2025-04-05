@@ -1,4 +1,4 @@
-package org.example.miniprojectuploadfileminio.model.response;
+package com.practice.javagroupiiminiproject.model.response;
 
 
 import lombok.AllArgsConstructor;

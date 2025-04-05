@@ -1,8 +1,8 @@
-package org.example.miniprojectuploadfileminio.service.impl;
+package com.practice.javagroupiiminiproject.service.impl;
 import io.minio.*;
 import lombok.SneakyThrows;
-import org.example.miniprojectuploadfileminio.model.entity.FileMetadata;
-import org.example.miniprojectuploadfileminio.service.FileService;
+import com.practice.javagroupiiminiproject.model.entity.FileMetadata;
+import com.practice.javagroupiiminiproject.service.FileService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
