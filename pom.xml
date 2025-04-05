@@ -32,12 +32,9 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -65,6 +62,23 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/io.minio/minio -->
+        <!-- https://mvnrepository.com/artifact/io.minio/minio -->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>8.5.14</version>
+        </dependency>
+
+
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter-test</artifactId>
@@ -88,6 +102,9 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                            <version>1.18.30</version>
+<!--                            <version>${spring-amqp.version}</version>-->
+                            <scope>provide</scope>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
