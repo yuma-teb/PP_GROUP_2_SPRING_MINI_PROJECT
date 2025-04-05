@@ -12,10 +12,12 @@ import java.io.InputStream;
 import java.util.UUID;
 @Service
 public class FileServiceImpl implements FileService {
+
     //Get Bucket Name
     @Value("${minio.bucket.name}")
     private String bucketName;
     private final MinioClient minioClient;
+
     public FileServiceImpl(MinioClient minioClient) {
         this.minioClient = minioClient;
     }
@@ -38,8 +40,9 @@ public class FileServiceImpl implements FileService {
                         .build()
         );
         String fileUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/api/v1/files/preview-file" +fileName)
+                .path("/api/v1/files/preview-file/" +fileName)
                 .toUriString();
+
         return FileMetadata.builder()
                 .fileName(fileName)
                 .fileUrl(fileUrl)
