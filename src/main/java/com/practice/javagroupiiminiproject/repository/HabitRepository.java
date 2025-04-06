@@ -1,5 +1,6 @@
 package com.practice.javagroupiiminiproject.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -10,11 +11,18 @@ import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
+import com.practice.javagroupiiminiproject.model.entity.AppUser;
 import com.practice.javagroupiiminiproject.model.entity.Habit;
 import com.practice.javagroupiiminiproject.model.request.HabitRequest;
-
 @Mapper
 public interface HabitRepository {
+
+  // 	private String title;
+	// private String description;
+	// private String frequency;
+	// private Boolean isActive;
+  // private AppUser appUser;
+	// private LocalDateTime createAt;
 
    @Results(id = "HabitMapper", value = {
         @Result(property = "habitId", column = "habit_id"),
@@ -28,33 +36,36 @@ public interface HabitRepository {
     @Select("""
         SELECT * FROM habits OFFSET #{offset} LIMIT #{page};
         """)
-   List<Habit> getAllHabits(Integer offset, Integer page);
+    List<Habit> getAllHabits(@Param("offset") Integer offset, @Param("page") Integer page);
 
-   @ResultMap("HabitMapper")
-   @Select("""
+    @ResultMap("HabitMapper")
+    @Select("""
         SELECT * FROM habits WHERE habit_id = #{habitId};
         """)
-    Habit getHabitById(Long habitId);
-
+    Habit getHabitById(@Param("habitId") Long habitId);
 
     @ResultMap("HabitMapper")
     @Select(""" 
-        INSERT INTO habits (title, description, frequency) VALUES (#{req.title}, #{req.description}, #{req.frequency}, true) RETURNING *;
+        INSERT INTO habits (title, description, frequency, is_active) 
+        VALUES (#{req.title}, #{req.description}, #{req.frequency}, true) 
+        RETURNING *;
         """)
     Habit createHabit(@Param("req") HabitRequest habitRequest);
 
     @ResultMap("HabitMapper")
     @Select("""
-        UPDATE habits SET title = #{req.title}, description = #{req.description}, frequency = #{req.frequency} WHERE habit_id = #{habitId} RETURNING *;
+        UPDATE habits 
+        SET title = #{req.title}, 
+            description = #{req.description}, 
+            frequency = #{req.frequency} 
+        WHERE habit_id = #{habitId} 
+        RETURNING *;
         """)
-    Habit updateHabit(Long habitId,@Param("req") HabitRequest habitRequest);
-
+    Habit updateHabit(@Param("habitId") Long habitId, @Param("req") HabitRequest habitRequest);
 
     @ResultMap("HabitMapper")
     @Select("""
-        DELETE FROM habits WHERE habit_id = #{habitId} RETURNING *;
+        DELETE FROM habits WHERE habit_id = #{habitId};
         """)
-    Habit deleteHabit(Long habitId);
-
-
+    Habit deleteHabit(@Param("habitId") Long habitId);
 }
