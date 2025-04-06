@@ -5,7 +5,6 @@ import com.practice.javagroupiiminiproject.model.request.AppUserRequest;
 import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Mapper
@@ -46,7 +45,7 @@ public interface AppUserRepository {
     @Update("UPDATE app_users SET otp = #{otp}, otp_created_at = #{otpCreatedAt} WHERE email = #{email}")
     void updateOtpAndOtpCreatedAt(String email, String otp, LocalDateTime otpCreatedAt);
 
-    @Update("UPDATE app_users SET is_verified = true, otp = NULL, otp_created_at = NULL WHERE user_id = CAST(#{userId} AS UUID)")
+    @Update("UPDATE app_users SET is_verified = true, otp = NULL, otp_created_at = NULL WHERE app_user_id = CAST(#{userId} AS UUID)")
     void verifyUser(@Param("userId") UUID userId); // Ensure this is UUID
 
     @Update("UPDATE app_users SET reset_token = #{resetToken}, reset_token_expiry = #{expiry} WHERE email = #{email}")
