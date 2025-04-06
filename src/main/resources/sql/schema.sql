@@ -2,16 +2,23 @@
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 -- Create the 'app_users' table
+DROP TABLE IF EXISTS app_users;
 CREATE TABLE IF NOT EXISTS app_users
 (
-    app_user_id       UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    username          VARCHAR(100) NOT NULL,
-    email             VARCHAR(255) NOT NULL UNIQUE,
-    level             INTEGER          DEFAULT 0,
-    xp                INTEGER          DEFAULT 0,
-    profile_image_url VARCHAR(255),
-    is_verified       BOOLEAN          DEFAULT false,
-    created_at        TIMESTAMPTZ      DEFAULT CURRENT_TIMESTAMP
+    app_user_id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    username           VARCHAR(100) NOT NULL,
+    email              VARCHAR(255) NOT NULL UNIQUE,
+    password           VARCHAR(255) NOT NULL,
+    otp                VARCHAR(10),
+    otp_created_at     TIMESTAMP,
+    reset_token        VARCHAR(255),
+    reset_token_expiry TIMESTAMP,
+    level              INTEGER          DEFAULT 0,
+    xp                 INTEGER          DEFAULT 0,
+    profile_image_url  VARCHAR(255),
+    is_verified        BOOLEAN          DEFAULT false,
+    created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create the 'habits' table

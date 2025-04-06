@@ -5,6 +5,7 @@ import com.practice.javagroupiiminiproject.model.request.CreateHabitLogRequest;
 import com.practice.javagroupiiminiproject.model.response.APIResponse;
 import com.practice.javagroupiiminiproject.service.HabitLogService;
 import com.practice.javagroupiiminiproject.service.impl.HabitLogServiceImpl;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/api/v1/habit-logs")
 @Validated
