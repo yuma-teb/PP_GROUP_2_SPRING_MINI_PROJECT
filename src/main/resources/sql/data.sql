@@ -32,3 +32,19 @@ VALUES
     ((SELECT app_user_id FROM app_users WHERE username = 'john_doe'), (SELECT achievement_id FROM achievements WHERE title = 'Fitness Enthusiast')),
     ((SELECT app_user_id FROM app_users WHERE username = 'jane_smith'), (SELECT achievement_id FROM achievements WHERE title = 'Bookworm')),
     ((SELECT app_user_id FROM app_users WHERE username = 'mark_twain'), (SELECT achievement_id FROM achievements WHERE title = 'Meal Prep Master'));
+
+
+
+INSERT INTO app_user_achievements (app_user_id, achievement_id)
+VALUES
+    ((SELECT app_user_id FROM app_users WHERE username = 'jane_smith'), (SELECT achievement_id FROM achievements WHERE title = 'Fitness Enthusiast'));
+
+
+SELECT * FROM app_user_achievements auc INNER JOIN public.achievements a on a.achievement_id = auc.achievement_id WHERE app_user_id = '22bae3e8-9018-4979-abfc-82b73b250b21';
+
+INSERT INTO achievements (title, description, badge, experience_required)
+VALUES
+    ('First Habit Completed', 'Awarded when a user completes their first habit.', 'first_habit_badge.png', 50),
+    ('7-Day Streak', 'Awarded for completing a habit for 7 consecutive days.', '7_day_streak_badge.png', 100),
+    ('30-Day Streak', 'Awarded for completing a habit for 30 consecutive days.', '30_day_streak_badge.png', 200),
+    ('XP Overlord', 'Awarded for earning 5000 XP in total.', 'xp_overlord_badge.png', 5000);
