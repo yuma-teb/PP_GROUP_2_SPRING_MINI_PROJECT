@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class HabitServiceImpl implements HabitService{
-
   private final HabitRepository habitRepository;
 
   @Override
@@ -44,12 +43,12 @@ public class HabitServiceImpl implements HabitService{
   @Override
   public Habit updateHabit(Long habitId, HabitRequest habitRequest) {
     getHabitById(habitId); 
-    return habitRepository.updateHabitById(habitId, habitRequest);
+    return habitRepository.updateHabit(habitId, habitRequest);
   }
 
   @Override
   public Habit deleteHabit(Long habitId) {
     getHabitById(habitId); 
-    return habitRepository.deleteHabitById(habitId);
+    return habitRepository.deleteHabit(habitId);
   }
 }

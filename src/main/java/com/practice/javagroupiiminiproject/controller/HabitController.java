@@ -86,7 +86,7 @@ public class HabitController {
     );
   }
 
-  @DeleteMapping("/{habit-id}")
+  @DeleteMapping("{habit-id}")
   public ResponseEntity<?> deleteHabit(@PathVariable("habit-id") Long habitId) {
     Habit habit = habitService.deleteHabit(habitId);
     return ResponseEntity.ok(
