@@ -13,6 +13,7 @@ public interface AchievementRepository {
     @Results(id = "achievementMapper",value = {
             @Result(property = "achievementId",column = "achievement_id"),
             @Result(property = "exRequired",column = "experience_required"),
+
     })
 
         @Select("""
@@ -23,7 +24,8 @@ public interface AchievementRepository {
 
     @ResultMap("achievementMapper")
     @Select("""
-        
+        SELECT * FROM app_user_achievements auc INNER JOIN public.achievements a on a.achievement_id = auc.achievement_id WHERE app_user_id = #{appuserId};
+       
        """)
-    Achievement getAchievementByAppUserID(UUID appuserId);
+    List <Achievement> getAchievementByAppUserID(UUID appuserId);
 }

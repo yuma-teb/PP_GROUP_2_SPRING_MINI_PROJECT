@@ -15,14 +15,12 @@ import java.util.UUID;
 @RequestMapping("/api/v1/achievement")
 public class AchievementController {
     private final AchievementService service;
-
-
     @GetMapping
     public ResponseEntity<APIResponse<List<Achievement>>> getAllAchievement(){
         return service.getAllAchievement();
     }
-    @GetMapping("/app-user")
-    public Achievement getAchievementByAppUserID (@PathVariable("app-user") UUID appuserId){
+    @GetMapping("/{app-user}")
+    public ResponseEntity<APIResponse<List<Achievement>>> getAchievementByAppUserID (@PathVariable("app-user") UUID appuserId){
         return service.getAchievementByAppUserID(appuserId);
     }
 }

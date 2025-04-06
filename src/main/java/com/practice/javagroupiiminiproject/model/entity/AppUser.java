@@ -23,4 +23,5 @@ public class AppUser {
     private String profile_image;
     private boolean isVerified;
     private LocalDate createdAt;
+
 }
