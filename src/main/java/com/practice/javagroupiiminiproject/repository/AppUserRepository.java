@@ -2,6 +2,8 @@ package com.practice.javagroupiiminiproject.repository;
 
 import com.practice.javagroupiiminiproject.model.entity.AppUser;
 import com.practice.javagroupiiminiproject.model.request.AppUserRequest;
+import com.practice.javagroupiiminiproject.model.request.UserProfileRequest;
+import com.practice.javagroupiiminiproject.model.response.UserProfileResponse;
 import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDateTime;
@@ -69,4 +71,20 @@ public interface AppUserRepository {
 
     @Update("UPDATE app_users SET password = #{newPassword}, reset_token = NULL, reset_token_expiry = NULL WHERE reset_token = #{resetToken}")
     void resetPassword(String resetToken, String newPassword);
+
+    @Select("""
+SELECT * FROM app_users WHERE email = #{email} , 
+""")
+    @Results()
+    UserProfileResponse getUserProfile(String email);
+
+    @Update("""
+UPDATE app_users SET full_name = #{fullName} , profile_image_url = #{profileImage} WHERE email = #{email}
+""")
+    UserProfileResponse updateProfileUser(UserProfileRequest userProfileRequest, String name);
+
+    @Delete("""
+DELETE FROM app_users WHERE email = #{currentUserEmail}
+""")
+    void deleteProfileUser(String currentUserEmail);
 }
