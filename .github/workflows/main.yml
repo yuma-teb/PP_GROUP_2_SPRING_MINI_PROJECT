@@ -24,6 +24,9 @@ jobs:
             📄 *Commit Message:*
             `${{ github.event.commits[0].message }}`
         
+            🌿 *Branch:*
+            `${{ github.ref_name }}`
+        
             📂 *Repository:*
             `${{ github.repository }}`
         
@@ -38,3 +41,4 @@ jobs:
             • *Email:* `${{ github.event.head_commit.author.email }}`
             • *Commit ID:* `${{ github.sha }}`
           format: markdownv2
+
