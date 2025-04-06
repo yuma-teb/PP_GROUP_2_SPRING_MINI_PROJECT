@@ -202,7 +202,8 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public UserProfileResponse updateProfileUser(UserProfileRequest userProfileRequest) {
-        return appUserRepository.updateProfileUser(userProfileRequest,getCurrentUserEmail());
+        appUserRepository.updateProfileUser(userProfileRequest,getCurrentUserEmail());
+        return getUserprofile();
     }
 
     @Override

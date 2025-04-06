@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UserProfileResponse {
     private UUID id;
-    private String fullName;
+    private String username;
     private String email;
     private boolean isVerified;
     private int level;

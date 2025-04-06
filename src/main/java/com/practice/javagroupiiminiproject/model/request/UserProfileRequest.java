@@ -13,6 +13,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UserProfileRequest {
     @NotBlank(message = "Username cannot be blank")
-    private String fullName;
+    private String username;
     private String profileImage;
 }
