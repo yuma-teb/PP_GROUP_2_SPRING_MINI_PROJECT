@@ -38,23 +38,4 @@ public class AppUser implements UserDetails {
     private String profile_image;
     private LocalDate createdAt;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
-        for (String role : roles){
-            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role);
-            simpleGrantedAuthorities.add(simpleGrantedAuthority);
-        }
-        return simpleGrantedAuthorities;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
 }

@@ -10,5 +10,5 @@ import java.util.UUID;
 public interface AchievementService {
     ResponseEntity<APIResponse<List<Achievement>>> getAllAchievement();
 
-    Achievement getAchievementByAppUserID(UUID appuserId);
+    ResponseEntity<APIResponse<List<Achievement>>> getAchievementByAppUserID(UUID appuserId);
 }
