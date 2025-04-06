@@ -74,8 +74,8 @@ public interface AppUserRepository {
 
     //User Profile
     @Select("""
-SELECT * FROM app_users WHERE email = #{email}
-""")
+    SELECT * FROM app_users WHERE email = #{email}
+    """)
     @Results(id = "profileMap",value = {
             @Result(property = "id",column = "app_user_id"),
             @Result(property = "isVerified",column = "is_verified"),
@@ -86,13 +86,13 @@ SELECT * FROM app_users WHERE email = #{email}
     UserProfileResponse getUserProfile(String email);
 
     @Update("""
-UPDATE app_users SET username = #{req.username} , profile_image_url = #{req.profileImage} WHERE email = #{email}
-""")
+    UPDATE app_users SET username = #{req.username} , profile_image_url = #{req.profileImage} WHERE email = #{email}
+    """)
     @ResultMap("profileMap")
     void updateProfileUser(@Param("req") UserProfileRequest userProfileRequest, String email);
 
     @Delete("""
-DELETE FROM app_users WHERE email = #{currentUserEmail}
-""")
+    DELETE FROM app_users WHERE email = #{currentUserEmail}
+    """)
     void deleteProfileUser(String currentUserEmail);
-}
+    }

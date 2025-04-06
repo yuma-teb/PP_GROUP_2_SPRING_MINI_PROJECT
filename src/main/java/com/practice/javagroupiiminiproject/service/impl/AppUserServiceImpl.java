@@ -195,6 +195,7 @@ public class AppUserServiceImpl implements AppUserService {
         appUserRepository.resetPassword(resetToken, encodedPassword);
     }
 
+    //get user profile
     @Override
     public UserProfileResponse getUserprofile() {
         return appUserRepository.getUserProfile(getCurrentUserEmail());

@@ -16,6 +16,7 @@ public interface AppUserService extends UserDetailsService {
 
     void resetPassword(String resetToken, String newPassword);
 
+    //get user profile
     UserProfileResponse getUserprofile();
 
     UserProfileResponse updateProfileUser(UserProfileRequest userProfileRequest);
