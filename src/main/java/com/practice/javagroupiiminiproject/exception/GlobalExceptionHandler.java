@@ -111,4 +111,14 @@ public class GlobalExceptionHandler {
                 .contentType(MediaType.APPLICATION_PROBLEM_JSON)
                 .body(problemDetail);
     }
+
+
+    // Handle NotFoundException
+    @ExceptionHandler(NotFoundException.class)
+    public ProblemDetail notFoundExceptionHandler(NotFoundException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+        problemDetail.setProperty("timestamp", LocalDateTime.now());
+        return problemDetail;
+    }
+
 }
