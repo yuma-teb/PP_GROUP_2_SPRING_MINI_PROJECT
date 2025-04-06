@@ -7,15 +7,13 @@ import com.practice.javagroupiiminiproject.model.response.UserProfileResponse;
 import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Mapper
 public interface AppUserRepository {
-
     @Results(id = "appUserMapper", value = {
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "fullName", column = "full_name"),
+            @Result(property = "userId", column = "app_user_id"),
+            @Result(property = "fullName", column = "username"),
             @Result(property = "email", column = "email"),
             @Result(property = "password", column = "password"),
             @Result(property = "isVerified", column = "is_verified"),
@@ -24,24 +22,23 @@ public interface AppUserRepository {
             @Result(property = "resetToken", column = "reset_token"),
             @Result(property = "resetTokenExpiry", column = "reset_token_expiry"),
             @Result(property = "level", column = "level"),
-            @Result(property = "experience", column = "experience"),
-            @Result(property = "profile_image", column = "profile_image"),
+            @Result(property = "experience", column = "xp"),
+            @Result(property = "profileImage", column = "profile_image_url"),
             @Result(property = "createdAt", column = "created_at"),
-            @Result(property = "roles", column = "user_id",
-                    many = @Many(select = "com.example.jwt.repository.AppUserRepository.getAllRolesByUserId"))
-    })
+            @Result(property = "updatedAt", column = "updated_at"),
+             })
     @Select("SELECT * FROM app_users WHERE email = #{email}")
     AppUser findByEmail(String email);
 
     @Select("SELECT COUNT(*) > 0 FROM app_users WHERE email = #{email}")
     boolean checkExistEmail(String email);
 
-    @Select("SELECT COUNT(*) > 0 FROM app_users WHERE full_name = #{fullName}")
+    @Select("SELECT COUNT(*) > 0 FROM app_users WHERE username = #{fullName}")
     boolean checkExistUsername(String fullName);
 
     @ResultMap("appUserMapper")
     @Select("""
-            INSERT INTO app_users (full_name, email, password, is_verified, otp, otp_created_at, created_at)
+            INSERT INTO app_users (username, email, password, is_verified, otp, otp_created_at, created_at)
             VALUES (#{fullName}, #{email}, #{password}, false, #{otp}, #{otpCreatedAt}, #{createdAt})
             RETURNING *
             """)
@@ -50,17 +47,7 @@ public interface AppUserRepository {
     @Update("UPDATE app_users SET otp = #{otp}, otp_created_at = #{otpCreatedAt} WHERE email = #{email}")
     void updateOtpAndOtpCreatedAt(String email, String otp, LocalDateTime otpCreatedAt);
 
-    @Select("""
-        SELECT name FROM user_role UR
-        INNER JOIN app_roles AR ON UR.role_id = AR.role_id
-        WHERE user_id = CAST(#{user_id} AS UUID)
-    """)
-    List<String> getAllRolesByUserId(@Param("user_id") UUID userId); // Ensure this is UUID
-
-    @Insert("INSERT INTO user_role (user_id, role_id) VALUES (CAST(#{userId} AS UUID), #{roleId})")
-    void insertUserIdAndRoleId(@Param("roleId") Long roleId, @Param("userId") UUID userId); // Ensure this is UUID
-
-    @Update("UPDATE app_users SET is_verified = true, otp = NULL, otp_created_at = NULL WHERE user_id = CAST(#{userId} AS UUID)")
+    @Update("UPDATE app_users SET is_verified = true, otp = NULL, otp_created_at = NULL WHERE app_user_id = CAST(#{userId} AS UUID)")
     void verifyUser(@Param("userId") UUID userId); // Ensure this is UUID
 
     @Update("UPDATE app_users SET reset_token = #{resetToken}, reset_token_expiry = #{expiry} WHERE email = #{email}")

@@ -53,8 +53,6 @@ public class AppUserRequest {
     @Schema(hidden = true)
     private LocalDateTime resetTokenExpiry;
 
-    private List<String> roles;
-
     @JsonIgnore
     @Schema(hidden = true)
     private int level;
