@@ -58,8 +58,8 @@ public interface HabitRepository {
         SET title = #{req.title}, 
             description = #{req.description}, 
             frequency = #{req.frequency} 
-        WHERE habit_id = #{habitId} 
-        RETURNING *;
+            WHERE habit_id = #{habitId} 
+            RETURNING *;
         """)
     Habit updateHabit(@Param("habitId") Long habitId, @Param("req") HabitRequest habitRequest);
 
