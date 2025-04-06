@@ -35,6 +35,7 @@ public class AppUserServiceImpl implements AppUserService {
             throw new NotFoundException("User not found with email: " + email);
         }
         System.out.println("User Details: " + user);
+
         if (!user.isVerified()) {
             throw new BadRequestException("User is not verified");
         }
@@ -69,16 +70,6 @@ public class AppUserServiceImpl implements AppUserService {
 
         // Save the user
         AppUser savedUser = appUserRepository.register(appUser);
-
-        // Assign roles
-        for (String role : request.getRoles()){
-            if (role.equals("ROLE_USER")){
-                appUserRepository.insertUserIdAndRoleId(1L, savedUser.getUserId());
-            }
-            if (role.equals("ROLE_ADMIN")){
-                appUserRepository.insertUserIdAndRoleId(2L, savedUser.getUserId());
-            }
-        }
 
         // Send verification email
         emailService.sendVerificationEmail(savedUser.getEmail(), otp);

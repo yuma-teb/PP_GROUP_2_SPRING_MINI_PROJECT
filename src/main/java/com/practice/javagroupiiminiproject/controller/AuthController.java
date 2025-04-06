@@ -32,7 +32,10 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@Valid @RequestBody AuthRequest request) throws Exception {
         authenticate(request.getEmail(), request.getPassword());
+        System.out.println("ertyuio" + request);
+
         final UserDetails userDetails = appUserService.loadUserByUsername(request.getEmail());
+
         final String token = jwtService.generateToken(userDetails);
         AuthResponse authResponse = new AuthResponse(token);
         return ResponseEntity.ok(authResponse);
@@ -70,10 +73,14 @@ public class AuthController {
      */
     private void authenticate(String email, String password) throws Exception {
         try {
+            System.out.println("authenticating user");
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+            System.out.println("authenticated user");
         } catch (DisabledException e) {
+            System.out.println("User disabled: " + email);
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
+            System.out.println("Invalid credentials for email: " + email);
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }

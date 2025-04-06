@@ -37,5 +37,20 @@ public class AppUser implements UserDetails {
     private int experience;
     private String profile_image;
     private LocalDate createdAt;
+    private LocalDate updatedAt;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
 }
