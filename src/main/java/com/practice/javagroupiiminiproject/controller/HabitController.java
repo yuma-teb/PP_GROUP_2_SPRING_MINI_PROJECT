@@ -20,6 +20,7 @@ import com.practice.javagroupiiminiproject.model.request.HabitRequest;
 import com.practice.javagroupiiminiproject.model.response.APIResponse;
 import com.practice.javagroupiiminiproject.service.HabitService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -29,6 +30,7 @@ public class HabitController {
   private final HabitService habitService;
 
 
+  @Operation(summary = "Get all habits")
   @GetMapping
   public ResponseEntity<?> getAllHabits(@RequestParam(defaultValue = "1") Integer offset, @RequestParam(defaultValue = "10") Integer size) {
     List<?> habits = habitService.getAllHabits(offset, size);
@@ -43,6 +45,7 @@ public class HabitController {
     );
   }
 
+  @Operation(summary = "Create a new habit")
   @PostMapping
   public ResponseEntity<?> createHabit(@RequestBody HabitRequest habitRequest) {
     Habit habit = habitService.createHabit(habitRequest);
@@ -57,6 +60,8 @@ public class HabitController {
     );
   }
 
+
+  @Operation(summary = "Get a habit by ID")
   @GetMapping("{habit-id}")
   public ResponseEntity<?> getHabitById(@PathVariable("habit-id") Long habitId) {
     Habit habit = habitService.getHabitById(habitId);
@@ -72,6 +77,7 @@ public class HabitController {
   }
 
 
+  @Operation(summary = "Update a habit by ID")
   @PutMapping("{habit-id}")
   public ResponseEntity<?> updateHabit(@PathVariable("habit-id") Long habitId,@RequestBody HabitRequest habitRequest) {
     Habit habit = habitService.updateHabit(habitId, habitRequest);
@@ -86,6 +92,8 @@ public class HabitController {
     );
   }
 
+
+  @Operation(summary = "Delete a habit by ID")
   @DeleteMapping("{habit-id}")
   public ResponseEntity<?> deleteHabit(@PathVariable("habit-id") Long habitId) {
     Habit habit = habitService.deleteHabit(habitId);
