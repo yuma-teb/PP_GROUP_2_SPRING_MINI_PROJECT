@@ -2,6 +2,8 @@ package com.practice.javagroupiiminiproject.repository;
 
 import com.practice.javagroupiiminiproject.model.entity.AppUser;
 import com.practice.javagroupiiminiproject.model.request.AppUserRequest;
+import com.practice.javagroupiiminiproject.model.request.UserProfileRequest;
+import com.practice.javagroupiiminiproject.model.response.UserProfileResponse;
 import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDateTime;
@@ -56,4 +58,28 @@ public interface AppUserRepository {
 
     @Update("UPDATE app_users SET password = #{newPassword}, reset_token = NULL, reset_token_expiry = NULL WHERE reset_token = #{resetToken}")
     void resetPassword(String resetToken, String newPassword);
-}
+
+    //User Profile
+    @Select("""
+    SELECT * FROM app_users WHERE email = #{email}
+    """)
+    @Results(id = "profileMap",value = {
+            @Result(property = "id",column = "app_user_id"),
+            @Result(property = "isVerified",column = "is_verified"),
+            @Result(property = "experience",column = "xp"),
+            @Result(property = "profileImage",column = "profile_image_url"),
+            @Result(property = "createdAt",column = "created_at")
+    })
+    UserProfileResponse getUserProfile(String email);
+
+    @Update("""
+    UPDATE app_users SET username = #{req.username} , profile_image_url = #{req.profileImage} WHERE email = #{email}
+    """)
+    @ResultMap("profileMap")
+    void updateProfileUser(@Param("req") UserProfileRequest userProfileRequest, String email);
+
+    @Delete("""
+    DELETE FROM app_users WHERE email = #{currentUserEmail}
+    """)
+    void deleteProfileUser(String currentUserEmail);
+    }

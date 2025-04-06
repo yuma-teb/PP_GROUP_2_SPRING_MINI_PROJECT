@@ -4,11 +4,15 @@ import com.practice.javagroupiiminiproject.exception.BadRequestException;
 import com.practice.javagroupiiminiproject.exception.NotFoundException;
 import com.practice.javagroupiiminiproject.model.entity.AppUser;
 import com.practice.javagroupiiminiproject.model.request.AppUserRequest;
+import com.practice.javagroupiiminiproject.model.request.UserProfileRequest;
 import com.practice.javagroupiiminiproject.model.response.AppUserResponse;
+import com.practice.javagroupiiminiproject.model.response.UserProfileResponse;
 import com.practice.javagroupiiminiproject.repository.AppUserRepository;
 import com.practice.javagroupiiminiproject.service.AppUserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -180,5 +184,27 @@ public class AppUserServiceImpl implements AppUserService {
         // Encode the new password and update it in the database
         String encodedPassword = passwordEncoder.encode(newPassword);
         appUserRepository.resetPassword(resetToken, encodedPassword);
+    }
+
+    //get user profile
+    @Override
+    public UserProfileResponse getUserprofile() {
+        return appUserRepository.getUserProfile(getCurrentUserEmail());
+    }
+
+    @Override
+    public UserProfileResponse updateProfileUser(UserProfileRequest userProfileRequest) {
+        appUserRepository.updateProfileUser(userProfileRequest,getCurrentUserEmail());
+        return getUserprofile();
+    }
+
+    @Override
+    public void deleteProfileUser() {
+        appUserRepository.deleteProfileUser(getCurrentUserEmail());
+    }
+
+    private String getCurrentUserEmail(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
     }
 }
